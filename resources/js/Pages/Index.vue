@@ -4,7 +4,7 @@ import HighlightCarCard from "@/Components/HighlightCarCard.vue";
 import RecommenderForm from "@/Components/RecommenderForm.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import LargeSectionLayout from "@/Layouts/Sections/LargeSectionLayout.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from '@inertiajs/vue3';
 import KisumuLarge from '../../images/kisumu-large.jpg';
 import KisumuMedium from '../../images/kisumu-medium.jpg';
 import KisumuSmall from '../../images/kisumu-small.jpg';
@@ -165,7 +165,7 @@ import WhyUsSmall from '../../images/why-us-small.jpg';</script>
 
 				</ul>
 				<div class="uk-text-center uk-width-1-1 uk-margin-medium-top">
-					<Link class="uk-button uk-button-large uk-button-secondary uk-width-1-5@m uk-width-1-1">
+					<Link href="/" class="uk-button uk-button-large uk-button-secondary uk-width-1-5@m uk-width-1-1">
 						See all cars
 						<span class="uk-icon uk-margin-small-left" uk-icon="icon: arrow-right; ratio: 1.2"></span>
 					</Link>
