@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Enums\VehicleCategory;
-use App\Models\Concerns\HasSlug;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\HasSlugFromEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
     use HasFactory;
-    use HasSlug;
+    use HasSlugFromEnum;
 
     protected $fillable = [
         'name',
@@ -26,4 +26,9 @@ class Category extends Model
     {
         return $this->hasMany(related: CarModel::class);
     }
+
+//    protected static function booted()
+//    {
+//        static::creating(fn ($category) => $category->slug = Str::slug(title: $category->name->value));
+//    }
 }

@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Enums\VehicleType;
-use App\Models\Concerns\HasSlug;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Concerns\HasSlugFromEnum;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CarType extends Model
 {
     use HasFactory;
-    use HasSlug;
+    use HasSlugFromEnum;
 
     protected $fillable = [
         'name',

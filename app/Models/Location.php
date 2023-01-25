@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Concerns\HasSlug;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Location extends Model
 {
     use HasFactory;
+    use HasSlug;
 
     protected $fillable = [
         'name',
@@ -22,7 +24,8 @@ class Location extends Model
 
     public function carModels(): BelongsToMany
     {
-        return $this->belongsToMany(related: CarModel::class, table: 'car_model_location');
+        return $this->belongsToMany(related: CarModel::class, table: 'car_model_location')
+                    ->withPivot(columns: 'quantity');
     }
 
     public function cars(): HasMany

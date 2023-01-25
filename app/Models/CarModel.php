@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Casts\AsMoney;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CarModel extends Model
 {
@@ -32,17 +32,18 @@ class CarModel extends Model
 
     public function brand(): BelongsTo
     {
-        return $this->belongsTo(related: Brand::class);
+        return $this->belongsTo(related: Brand::class, foreignKey: 'brand_id');
     }
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(related: Category::class);
+        return $this->belongsTo(related: Category::class, foreignKey: 'category_id');
     }
 
     public function locations(): BelongsToMany
     {
-        return $this->belongsToMany(related: Location::class, table: 'car_model_location');
+        return $this->belongsToMany(related: Location::class, table: 'car_model_location')
+                    ->withPivot(columns: 'quantity');
     }
 
     public function cars(): HasMany
@@ -52,6 +53,6 @@ class CarModel extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(related: CarType::class);
+        return $this->belongsTo(related: CarType::class, foreignKey: 'car_type_id');
     }
 }

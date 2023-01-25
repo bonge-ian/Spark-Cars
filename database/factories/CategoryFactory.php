@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\VehicleCategory;
 use App\Models\Category;
+use App\Enums\VehicleCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -13,8 +13,9 @@ class CategoryFactory extends Factory
 {
     public function definition(): array
     {
+        $cases = VehicleCategory::cases();
         return [
-            'name' => $this->faker->randomElement(array: VehicleCategory::cases()),
+            'name' => $this->faker->randomElement(array: $cases),
         ];
     }
 }

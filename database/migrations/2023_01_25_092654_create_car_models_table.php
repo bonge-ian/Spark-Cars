@@ -3,12 +3,11 @@
 use App\Models\Brand;
 use App\Models\CarType;
 use App\Models\Category;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     public function up(): void
     {
         Schema::create('car_models', function (Blueprint $table) {
@@ -16,8 +15,8 @@ return new class extends Migration
             $table->foreignIdFor(model: Brand::class, column: 'brand_id')
                   ->constrained()
                   ->cascadeOnDelete();
-            $table->foreignIdFor(model: Category::class, column: 'category_id');
-            $table->foreignIdFor(model: CarType::class, column: 'car_type_id');
+            $table->foreignIdFor(model: Category::class, column: 'category_id')->constrained();
+            $table->foreignIdFor(model: CarType::class, column: 'car_type_id')->constrained();
 
             $table->string(column: 'model');
 

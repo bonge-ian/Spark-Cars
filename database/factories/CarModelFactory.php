@@ -14,11 +14,14 @@ class CarModelFactory extends Factory
     {
         return [
             'price' => $this->faker->numberBetween(int1: (3_000 * 100), int2: (60_000 * 100)),
-            'fuel_type' => $this->faker->vehicleFuelType(),
+            'fuel_type' => $fuel = $this->faker->vehicleFuelType(),
             'door_count' => $this->faker->vehicleDoorCount(),
             'seat_count' => $this->faker->vehicleSeatCount(),
             'properties' => $this->faker->vehicleProperties(),
-            'transmission' => $this->faker->vehicleGearBoxType(),
+            'transmission' => ($fuel === 'electric' || $fuel === 'hybrid')
+                ? 'automatic'
+                : $this->faker->vehicleGearBoxType(),
+            'model' => $this->faker->vehicleModel(),
         ];
     }
 }

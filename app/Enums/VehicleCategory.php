@@ -14,7 +14,7 @@ enum VehicleCategory: string
 
     case BUSINESS = 'business';
 
-    case OFF_ROAD = 'off_road';
+    case OFF_ROAD = 'off-road';
 
     case CARGO = 'cargo';
 }
