@@ -1,32 +1,35 @@
 <script setup>
-
-</script>
+	import { Link } from '@inertiajs/vue3';</script>
 
 <template>
 	<header class="uk-sticky uk-background-default"
-			uk-sticky="animation: uk-animation-slide-top;sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+	        uk-sticky="animation: uk-animation-slide-top;sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
+	>
 		<div class="uk-navbar-container">
 			<div class="uk-container uk-container-xlarge">
-				<nav class="uk-navbar" uk-navbar="">
+				<nav class="uk-navbar" uk-navbar>
 					<div class="uk-navbar-left">
-						<a class="uk-navbar-item uk-logo" href="#">
+						<Link class="uk-navbar-item uk-logo" :href="route('home')">
 							<img alt="Spark Cars Logo" height="40" src="../../images/logo.svg"
-								 width="194">
-						</a>
+							     width="194"
+							>
+						</Link>
 					</div>
 					<div class="uk-navbar-center">
 						<ul class="uk-navbar-nav">
 							<li>
-								<a href="#">Home</a>
+								<Link :href="route('home')">Home</Link>
 							</li>
 							<li>
 								<a href="#">Why Us</a>
 							</li>
 							<li>
-								<a href="#">Our Fleet</a>
+								<Link :href="route('fleet')">
+									Our Fleet
+								</Link>
 							</li>
 							<li>
-								<a href="#">Contact Us</a>
+								<a href="mailto:info@bonge-inc.co.ke">Contact Us</a>
 							</li>
 						</ul>
 					</div>
@@ -49,8 +52,8 @@
 </template>
 
 <style scoped>
-.uk-navbar-container {
-	background-color: inherit;
-	border-bottom: 1px solid #ededed;
-}
+	.uk-navbar-container {
+		background-color: inherit;
+		border-bottom: 1px solid #ededed;
+	}
 </style>
