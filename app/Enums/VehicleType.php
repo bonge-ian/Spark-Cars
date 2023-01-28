@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Enums\Concerns\WithLabel;
+
 enum VehicleType: string
 {
+    use WithLabel;
+
     case SEDAN = 'sedan';
     case SUV = 'suv';
     case HATCHBACK = 'hatchback';

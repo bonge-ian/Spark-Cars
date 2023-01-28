@@ -28,6 +28,7 @@ return new class () extends Migration {
             $table->string(column: 'transmission');
             $table->string(column: 'seat_count');
             $table->string(column: 'door_count');
+            $table->string(column: 'image_url')->nullable();
 
             $table->json(column: 'properties')->nullable();
             $table->timestamps();

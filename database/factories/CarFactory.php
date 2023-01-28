@@ -13,7 +13,7 @@ class CarFactory extends Factory
     public function definition(): array
     {
         return [
-            'registration' => $this->faker->unique()->vehicleRegistration('[A-Z]{3}-[0-9]{3}[A-Z]{1}'), //AB-12345
+            'registration' => $this->faker->unique()->vehicleRegistration('K[A-D]{1}[A-Z]{1}-[0-9]{3}[A-Z]{1}'),
             'vin' => $this->faker->unique()->vin(),
             'color' => $this->faker->colorName(),
         ];

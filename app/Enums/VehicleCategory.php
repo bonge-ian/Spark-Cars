@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Enums\Concerns\WithLabel;
+
 enum VehicleCategory: string
 {
+    use WithLabel;
+
     case BUDGET = 'budget';
 
     case LUXURY = 'luxury';
