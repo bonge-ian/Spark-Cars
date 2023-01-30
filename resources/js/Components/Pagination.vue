@@ -6,7 +6,7 @@
 	>
 		<ul class="uk-pagination uk-margin-remove-bottom uk-flex-center" uk-margin>
 			<li v-if="links.prev !== null">
-				<Link :href="links.prev" preserve-scroll title="Previous">
+				<Link :href="links.prev" title="Previous">
 					<span class="uk-icon" uk-pagination-previous></span>
 				</Link>
 			</li>
@@ -24,7 +24,7 @@
 			</li>
 
 			<li v-if="links.next !== null">
-				<Link :href="links.next" preserve-scroll title="Next">
+				<Link :href="links.next" title="Next">
 					<span uk-pagination-next></span>
 				</Link>
 			</li>

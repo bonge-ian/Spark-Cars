@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\AsMoney;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Builders\CarModelBuilder;
 use App\Models\Concerns\WithFormattedPrice;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -63,6 +64,16 @@ class CarModel extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(related: CarType::class, foreignKey: 'car_type_id');
+    }
+
+    public function newEloquentBuilder($query): CarModelBuilder
+    {
+        return new CarModelBuilder(query: $query);
+    }
+
+    public static function query(): CarModelBuilder
+    {
+        return parent::query();
     }
 
     protected function title(): Attribute

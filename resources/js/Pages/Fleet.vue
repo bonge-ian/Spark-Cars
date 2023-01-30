@@ -1,3 +1,72 @@
+<script setup>
+	import { Head, router } from '@inertiajs/vue3';
+	import GuestLayout from "@/Layouts/GuestLayout.vue";
+	import LargeSectionLayout from "@/Layouts/Sections/LargeSectionLayout.vue";
+	import CarCard from "@/Components/CarCard.vue";
+	import { computed, ref } from 'vue';
+	import Pagination from "@/Components/Pagination.vue";
+	import { isNil, omitBy } from "lodash";
+
+	const props = defineProps({
+		cars: Object,
+		filters: Object,
+		selectedFilters: Object,
+	});
+
+
+	const sortIcon = ref(null);
+
+	const selectedFiltersAsArray = computed(() => {
+		if (props.selectedFilters === undefined) {
+			return null;
+		}
+		return Object.keys(removeFalselySelectedFilters());
+	});
+
+	const addFilter = (filter, value) => {
+		props.selectedFilters[filter] = value;
+
+		router.get(
+			route('fleet'),
+			removeFalselySelectedFilters(),
+			{
+				replace: true,
+				preserveState: true,
+				preserveScroll: true
+			}
+		)
+	};
+
+	const removeFalselySelectedFilters = () => {
+		if (props.selectedFilters) {
+			return omitBy(props.selectedFilters, isNil);
+		}
+
+	}
+
+	const removeFilter = (key) => {
+		delete props.selectedFilters[key];
+
+		router.get(
+			route('fleet'),
+			removeFalselySelectedFilters(),
+			{
+				replace: true,
+				preserveState: true,
+				preserveScroll: true
+			}
+		)
+	}
+
+	const changeIcon = (e) => {
+		if (e.target.classList.contains('uk-open')) {
+			sortIcon.value.setAttribute('uk-icon', 'icon: arrow-up')
+		} else {
+			sortIcon.value.setAttribute('uk-icon', 'icon: arrow-down')
+		}
+	}
+</script>
+
 <template>
 	<Head title="Our Fleet"/>
 
@@ -120,235 +189,28 @@
 								<div class="uk-grid uk-flex-middle uk-child-width-auto uk-flex-left@s uk-flex-center"
 								     uk-grid
 								>
-									<div>
-										<button type="button" class="uk-button uk-button-link" id="brand">
-											Brand
-											<span ref="sortIcon" class="uk-icon " uk-icon="icon: arrow-down"></span>
+									<div v-for="(filter, filterLabel) in filters" :key="filterLabel">
+										<button type="button"
+										        class="uk-button uk-button-link uk-text-capitalize"
+										        :id="filterLabel"
+										>
+											{{ filterLabel }}
+											<span class="uk-icon " uk-icon="icon: arrow-down"></span>
 										</button>
-										<div class="uk-dropdown uk-width-small@m"
-										     @shown="changeIcon"
-										     @hidden="changeIcon"
-										     uk-dropdown="toggle: #brand;mode: click;animation: reveal-top; duration: 140; animate-out: true;offset: 20"
+										<div class="uk-dropdown uk-width-small@m uk-height-max-medium uk-overflow-auto"
+										     :uk-dropdown="`toggle: #${filterLabel};mode: click;auto-update: false;animation: reveal-top; duration: 140; animate-out: true;offset: 20`"
 										>
 											<form class="uk-grid uk-child-width-1-1 uk-grid-small" uk-grid>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
+												<div v-for="(filterOption, label) in filter" :key="label">
+													<label class="uk-text-capitalize" :for="label">
+														<input class="uk-radio uk-margin-small-right uk-text-capitalize"
+														       type="radio"
+														       :id="label"
+														       :value="label"
+														       v-model="props.selectedFilters[filterLabel]"
+														       @change="addFilter(filterLabel, $event.target.value)"
 														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-											</form>
-
-										</div>
-									</div>
-									<div>
-										<button type="button" class="uk-button uk-button-link" id="category">
-											Category
-											<span ref="sortIcon" class="uk-icon " uk-icon="icon: arrow-down"></span>
-										</button>
-										<div class="uk-dropdown uk-width-small@m"
-										     @shown="changeIcon"
-										     @hidden="changeIcon"
-										     uk-dropdown="toggle: #category;mode: click;animation: reveal-top; duration: 140; animate-out: true;offset: 20"
-										>
-											<form class="uk-grid uk-child-width-1-1 uk-grid-small" uk-grid>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-											</form>
-
-										</div>
-									</div>
-									<div>
-										<button type="button" class="uk-button uk-button-link" id="location">
-											Location
-											<span ref="sortIcon" class="uk-icon " uk-icon="icon: arrow-down"></span>
-										</button>
-										<div class="uk-dropdown uk-width-small@m"
-										     @shown="changeIcon"
-										     @hidden="changeIcon"
-										     uk-dropdown="toggle: #location;mode: click;animation: reveal-top; duration: 140; animate-out: true;offset: 20"
-										>
-											<form class="uk-grid uk-child-width-1-1 uk-grid-small" uk-grid>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-											</form>
-
-										</div>
-									</div>
-									<div>
-										<button type="button" class="uk-button uk-button-link" id="passenger">
-											Passengers
-											<span ref="sortIcon" class="uk-icon " uk-icon="icon: arrow-down"></span>
-										</button>
-										<div class="uk-dropdown uk-width-small@m"
-										     @shown="changeIcon"
-										     @hidden="changeIcon"
-										     uk-dropdown="toggle: #passenger;mode: click;animation: reveal-top; duration: 140; animate-out: true;offset: 20"
-										>
-											<form class="uk-grid uk-child-width-1-1 uk-grid-small" uk-grid>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-											</form>
-
-										</div>
-									</div>
-									<div>
-										<button type="button" class="uk-button uk-button-link" id="car-type">
-											Type
-											<span ref="sortIcon" class="uk-icon " uk-icon="icon: arrow-down"></span>
-										</button>
-										<div class="uk-dropdown uk-width-small@m"
-										     @shown="changeIcon"
-										     @hidden="changeIcon"
-										     uk-dropdown="toggle: #car-type;mode: click;animation: reveal-top; duration: 140; animate-out: true;offset: 20"
-										>
-											<form class="uk-grid uk-child-width-1-1 uk-grid-small" uk-grid>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
-													</label>
-												</div>
-												<div>
-													<label>
-														<input class="uk-checkbox uk-margin-small-right"
-														       type="checkbox"
-														>
-														Category 1
+														{{ filterOption }}
 													</label>
 												</div>
 											</form>
@@ -367,14 +229,21 @@
 								<div class="uk-dropdown"
 								     @shown="changeIcon"
 								     @hidden="changeIcon"
-								     uk-dropdown="toggle: #sort;mode: click;pos: bottom-center;animation: reveal-top; duration: 300; animate-out: true;offset: 20"
+								     uk-dropdown="toggle: #sort;mode: click;auto-update: false;pos: bottom-center;animation: reveal-top; duration: 300; animate-out: true;offset: 20"
 								>
 									<ul class="uk-nav uk-dropdown-nav">
 										<li class="uk-nav-header">Sort Options</li>
-										<li><a href="#">Price: Low to high</a></li>
-										<li><a href="#">Price: High to low</a></li>
-										<li><a href="#">Newest</a></li>
-										<li><a href="#">Popular</a></li>
+										<li class="uk-nav-divider"></li>
+										<li>
+											<a href="#" @click.prevent="addFilter('price','asc')">
+												Price: Low to high
+											</a>
+										</li>
+										<li>
+											<a href="#" @click.prevent="addFilter('price','desc')">
+												Price: High to low
+											</a>
+										</li>
 									</ul>
 
 								</div>
@@ -384,7 +253,9 @@
 				</div>
 			</section>
 
-			<section class="uk-section uk-section-xsmall uk-section-secondary uk-preserve-color">
+			<section v-if="selectedFiltersAsArray.length"
+			         class="uk-section uk-section-xsmall uk-section-secondary uk-preserve-color"
+			>
 				<div class="uk-container uk-container-xlarge">
 					<div class="uk-grid uk-grid-small uk-grid-divider uk-flex-middle" uk-grid>
 						<div class="uk-width-auto">
@@ -392,11 +263,16 @@
 						</div>
 						<div class="uk-width-expand">
 							<div class="uk-grid uk-child-width-auto uk-grid-small uk-flex-middle" uk-grid>
-								<div v-for="i in [1,2,3,4,5,6]" :key="i">
+								<div v-for="(value, key) in props.selectedFilters" :key="`${key}-${value}`">
 								<span class="filter-label uk-background-muted uk-inline-flex uk-flex-middle uk-border-pill uk-text-small uk-text-secondary"
 								>
-									<span class="uk-text-secondary">Budget {{ i }}</span>
-									<button type="button" class=" uk-margin-small-left uk-icon"
+									<span class="uk-text-secondary uk-text-capitalize">{{ key }}: </span>
+									<span class="uk-text-success uk-text-bold">
+										{{ value }}
+									</span>
+									<button @click="removeFilter(key, value)"
+									        type="button"
+									        class="remove-filter uk-margin-small-left uk-icon"
 									        uk-icon="icon: close; ratio: .755"
 									></button>
 								</span>
@@ -415,43 +291,35 @@
 			         uk-height-match="target: > div > .uk-panel > a > .uk-card > .uk-card-header"
 			         x
 			>
-				<div v-for="car in cars.data" :key="car.model">
-					<div class="uk-panel">
-						<CarCard :car="car"/>
+				<template v-if="cars.data.length">
+					<div v-for="car in cars.data" :key="car.model">
+						<div class="uk-panel">
+							<CarCard :car="car"/>
+						</div>
 					</div>
-				</div>
+				</template>
+				<template v-else>
+					<div class="uk-width-1-1-">
+						<div class="uk-container uk-container-small">
+							<div class="uk-alert uk-alert-warning" uk-alert>
+								<p>Sorry. We don't have a vehicle that matches your search.</p>
+							</div>
+						</div>
+					</div>
+				</template>
 			</article>
 			<Pagination :meta="cars.meta" :links="cars.links"/>
 		</LargeSectionLayout>
 	</GuestLayout>
 </template>
 
-<script setup>
-	import { Head } from '@inertiajs/vue3';
-	import GuestLayout from "@/Layouts/GuestLayout.vue";
-	import LargeSectionLayout from "@/Layouts/Sections/LargeSectionLayout.vue";
-	import CarCard from "@/Components/CarCard.vue";
-	import { ref } from 'vue';
-	import Pagination from "@/Components/Pagination.vue";
-
-	const props = defineProps({
-		cars: Object
-	});
-
-	const sortIcon = ref(null);
-
-	const changeIcon = (e) => {
-		if (e.target.classList.contains('uk-open')) {
-			sortIcon.value.setAttribute('uk-icon', 'icon: arrow-up')
-		} else {
-			sortIcon.value.setAttribute('uk-icon', 'icon: arrow-down')
-		}
-	}
-</script>
-
 <style scoped>
 	.filter-label {
 		padding: .375rem .5rem .375rem .75rem;
 		color: #1a1e23 !important;
+	}
+
+	.remove-filter:hover {
+		color: #fa0d0d;
 	}
 </style>

@@ -530,6 +530,7 @@
 	import WhyUsLarge from '../../images/why-us-large.jpg';
 	import WhyUsMedium from '../../images/why-us-medium.jpg';
 	import WhyUsSmall from '../../images/why-us-small.jpg';
+	import Pagination from "@/Components/Pagination.vue";
 
 	const props = defineProps({
 		carModels: Object,
