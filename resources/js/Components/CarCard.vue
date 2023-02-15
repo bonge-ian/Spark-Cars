@@ -1,3 +1,13 @@
+<script setup>
+	import { computed } from 'vue';
+
+	const props = defineProps({
+		car: Object,
+	});
+
+	const imageAlt = computed(() => props.car.title + ' image');
+</script>
+
 <template>
 	<a href="#" class="uk-link-toggle uk-link-reset uk-transition-toggle" tabindex="0">
 
@@ -45,16 +55,6 @@
 
 	</a>
 </template>
-
-<script setup>
-	import { computed } from 'vue';
-
-	const props = defineProps({
-		car: Object,
-	});
-
-	const imageAlt = computed(() => props.car.title + ' image');
-</script>
 
 <style scoped>
 	.uk-overlay-primary {

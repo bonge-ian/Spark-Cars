@@ -1,3 +1,33 @@
+<script setup>
+
+	import HighlightCarCard from "@/Components/HighlightCarCard.vue";
+	import RecommenderForm from "@/Components/RecommenderForm.vue";
+	import GuestLayout from "@/Layouts/GuestLayout.vue";
+	import LargeSectionLayout from "@/Layouts/Sections/LargeSectionLayout.vue";
+	import { Head, Link } from '@inertiajs/vue3';
+	import KisumuLarge from '../../images/kisumu-large.jpg';
+	import KisumuMedium from '../../images/kisumu-medium.jpg';
+	import KisumuSmall from '../../images/kisumu-small.jpg';
+	import MombasaLarge from '../../images/mombasa-large.jpg';
+	import MombasaMedium from '../../images/mombasa-medium.jpg';
+	import MombasaSmall from '../../images/mombasa-small.jpg';
+	import NairobiLarge from '../../images/nairobi-large.jpg';
+	import NairobiMedium from '../../images/nairobi-medium.jpg';
+	import NairobiSmall from '../../images/nairobi-small.jpg';
+	import WhyUsLargeAlt from '../../images/why-us-alt-large.jpg';
+	import WhyUsMediumAlt from '../../images/why-us-alt-medium.jpg';
+	import WhyUsSmallAlt from '../../images/why-us-alt-small.jpg';
+	import WhyUsLarge from '../../images/why-us-large.jpg';
+	import WhyUsMedium from '../../images/why-us-medium.jpg';
+	import WhyUsSmall from '../../images/why-us-small.jpg';
+	import Pagination from "@/Components/Pagination.vue";
+
+	const props = defineProps({
+		carModels: Object,
+		categories: Object,
+	})
+</script>
+
 <template>
 	<Head title="Home"/>
 	<GuestLayout>
@@ -14,7 +44,7 @@
 					</div>
 					<div class="uk-width-2-5@l">
 						<div class="uk-hidden@l">
-							<RecommenderForm/>
+
 						</div>
 						<div
 							class="uk-visible@l uk-panel uk-tile uk-tile-small uk-padding-remove-top uk-tile-muted uk-width-2-5 uk-position-z-index panel-overlay uk-position-right@l"
@@ -507,36 +537,6 @@
 		</LargeSectionLayout>
 	</GuestLayout>
 </template>
-
-<script setup>
-
-	import HighlightCarCard from "@/Components/HighlightCarCard.vue";
-	import RecommenderForm from "@/Components/RecommenderForm.vue";
-	import GuestLayout from "@/Layouts/GuestLayout.vue";
-	import LargeSectionLayout from "@/Layouts/Sections/LargeSectionLayout.vue";
-	import { Head, Link } from '@inertiajs/vue3';
-	import KisumuLarge from '../../images/kisumu-large.jpg';
-	import KisumuMedium from '../../images/kisumu-medium.jpg';
-	import KisumuSmall from '../../images/kisumu-small.jpg';
-	import MombasaLarge from '../../images/mombasa-large.jpg';
-	import MombasaMedium from '../../images/mombasa-medium.jpg';
-	import MombasaSmall from '../../images/mombasa-small.jpg';
-	import NairobiLarge from '../../images/nairobi-large.jpg';
-	import NairobiMedium from '../../images/nairobi-medium.jpg';
-	import NairobiSmall from '../../images/nairobi-small.jpg';
-	import WhyUsLargeAlt from '../../images/why-us-alt-large.jpg';
-	import WhyUsMediumAlt from '../../images/why-us-alt-medium.jpg';
-	import WhyUsSmallAlt from '../../images/why-us-alt-small.jpg';
-	import WhyUsLarge from '../../images/why-us-large.jpg';
-	import WhyUsMedium from '../../images/why-us-medium.jpg';
-	import WhyUsSmall from '../../images/why-us-small.jpg';
-	import Pagination from "@/Components/Pagination.vue";
-
-	const props = defineProps({
-		carModels: Object,
-		categories: Object,
-	})
-</script>
 
 <style scoped>
 	@media (min-width: 1200px) {

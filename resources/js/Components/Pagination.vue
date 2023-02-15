@@ -1,3 +1,15 @@
+<script setup>
+	import { Link } from '@inertiajs/vue3';
+	import { computed } from 'vue';
+
+	const props = defineProps({
+		links: Object,
+		meta: Object,
+	})
+
+	const pages = computed(() => props.meta.links.slice(1, -1));
+</script>
+
 <template>
 	<nav v-if="meta.links.length > 3"
 	     class="uk-margin-large uk-text-center"
@@ -32,18 +44,6 @@
 
 	</nav>
 </template>
-
-<script setup>
-	import { Link } from '@inertiajs/vue3';
-	import { computed } from 'vue';
-
-	const props = defineProps({
-		links: Object,
-		meta: Object,
-	})
-
-	const pages = computed(() => props.meta.links.slice(1, -1));
-</script>
 
 <style scoped>
 
