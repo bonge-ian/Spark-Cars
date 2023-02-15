@@ -204,13 +204,12 @@
 
 // navbar
 @mixin hook-navbar-nav-item() {
-	transition: .1s ease-in-out;
+	transition: 0.1s ease-in-out;
 	transition-property: color, background-color, border-color, box-shadow;
 	position: relative;
 	//z-index: -1;
 	font-weight: 500;
 	cursor: pointer;
-
 
 	&::before {
 		content: "";
@@ -220,12 +219,13 @@
 		top: 0;
 		height: 2px;
 		background-color: transparent;
-		transition: .3s ease-in-out;
-		transition-property: background-color, border-color, box-shadow, height, left, right, opacity;
+		transition: 0.3s ease-in-out;
+		transition-property: background-color, border-color, box-shadow, height,
+			left, right, opacity;
 		--uk-navbar-nav-item-line-margin-horizontal: 0;
 		left: var(--uk-navbar-nav-item-line-margin-horizontal);
 		left: 50%;
-		right: 50%
+		right: 50%;
 	}
 }
 
@@ -253,9 +253,9 @@
 
 @mixin hook-navbar-misc() {
 	@media (min-width: $breakpoint-medium) {
-		.uk-sticky-fixed > .uk-navbar-container:not(.uk-navbar):not(.uk-navbar-transparent) {
-			transition: .2s linear;
-			transition-property: padding
+		.uk-sticky-fixed  > .uk-navbar-container:not(.uk-navbar):not(.uk-navbar-transparent) {
+			transition: 0.2s linear;
+			transition-property: padding;
 		}
 
 		:not(.uk-sticky-below) > .uk-navbar-container:not(.uk-navbar) {
@@ -267,8 +267,9 @@
 
 // buttons
 @mixin hook-button() {
-	transition: .1s ease-in-out;
-	transition-property: color, background-color, background-position, background-size, border-color, box-shadow;
+	transition: 0.1s ease-in-out;
+	transition-property: color, background-color, background-position,
+		background-size, border-color, box-shadow;
 	@extend .uk-text-bold;
 }
 
@@ -287,7 +288,7 @@
 }
 
 @mixin hook-button-primary-hover() {
-	border-color: $global-primary-background
+	border-color: $global-primary-background;
 }
 
 @mixin hook-button-primary-active() {
@@ -300,7 +301,7 @@
 }
 
 @mixin hook-button-secondary-hover() {
-	border-color: $global-primary-background
+	border-color: $global-primary-background;
 }
 
 @mixin hook-button-secondary-active() {
@@ -343,7 +344,7 @@
 
 @mixin hook-button-misc() {
 	.uk-button:not(.uk-button-text, .uk-button-link) {
-		border-radius: .375rem;
+		border-radius: 0.375rem;
 		border-width: 0.125rem;
 		border-style: solid;
 	}
@@ -366,7 +367,11 @@
 
 @mixin hook-overlay-misc() {
 	.uk-overlay-gradient {
-		background: linear-gradient(0deg, rgba($global-secondary-background, .65) 0, rgba(255, 255, 255, 0) 100%);
+		background: linear-gradient(
+			0deg,
+			rgba($global-secondary-background, 0.65) 0,
+			rgba(255, 255, 255, 0) 100%
+		);
 		//background: linear-gradient(to bottom, rgba(31, 31, 31, 0), rgba(31, 31, 31, .4))
 	}
 }
@@ -376,7 +381,6 @@
 		align-items: baseline;
 	}
 }
-
 
 @mixin hook-pagination-item {
 	padding: 0.8125rem 0.9375rem;
